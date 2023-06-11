@@ -1,3 +1,7 @@
+#for all of my requestes for some reason i am getting error 500 for my sever, im fairly certain everything is spelled correctly and is written atleast mostly correct
+#i cant seem to find the error in this
+
+
 #these are the imports
 from flask import Flask, request, make_response
 import json, jsonify
@@ -7,12 +11,11 @@ app = Flask(__name__)
 #the first get request will send a request that will run the sql procedure called return_philosopher
 @app.get("/api/philosopher")
 def return_philo():
-    results = dbhelpers.run_procedures("CALL return_philosopher()", [])
+    results = dbhelpers.run_procedures("CALL return_philosopher()")
     if(type(results) == list):
-        philosopher_json = json.dump(results, default=str)
-        return philosopher_json
+        return make_response(jsonify(results), 200)
     else:
-        return "sorry, something went wrong"
+        return make_response(jsonify(results), 400)
 #the first post request runs by calling the sql procedure called new_philosopher needing 5 jsons this also has the make_response
 app.post("/api/philosopher")
 def create_philosopher():
@@ -27,12 +30,11 @@ def create_philosopher():
 #the second get request calls the sql procedure called return_all this will return all of the qoutes   
 @app.get("/api/qoute")
 def return_qoutes():
-    results = dbhelpers.run_procedures("CALL return_all()", [])
+    results = dbhelpers.run_procedures("CALL return_all()")
     if(type(results) == list):
-        philosopher_json = json.dump(results, default=str)
-        return philosopher_json
+        return make_response(jsonify(results), 200)
     else:
-        return "sorry, something went wrong"
+        return make_response(jsonify(results), 400)
 #the seconf post calls the sql procedure new_philosopher this will create a new philosopher it needs 2 jsons and it has the make_response
 app.post("/api/qoute")
 def create_qoutes():
