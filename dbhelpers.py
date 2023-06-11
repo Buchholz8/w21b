@@ -22,7 +22,7 @@ def run_procedures(sql, args):
         if conn is not None:
             conn.close()
         return results
-
+#i made the endpoint here sam as on the slides, should this be changed? maybe try to make sure nothing happens with the data that could affect everything
 def check_endpoint_info(sent_data, expected_data):
     for data in expected_data:
         if(sent_data.get(data) == None):
